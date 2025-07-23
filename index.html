@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <title>AI Tanay - Movie Copilot</title>
+ <link rel="stylesheet" href="style.css" />
+ <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+ <header>
+   <h1>AI Tanay - Your Movie Copilot</h1>
+   <p>Which movie did you watch recently?</p>
+ </header>
+ <section class="chat-ui">
+   <div id="refreshNotice" class="refresh-notice">🔄 Refreshing...</div>
+   <div id="chatWindow" class="chat-window"></div>
+   <form id="chatForm" autocomplete="off">
+     <input type="text" id="chatInput" placeholder="Type your message..." required />
+     <button type="submit">Send</button>
+     <button type="button" id="refreshBtn" title="Refresh">🔄</button>
+   </form>
+ </section>
+ <script src="script.js"></script>
+</body>
+</html>
