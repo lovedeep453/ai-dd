@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatInput = document.getElementById("chatInput");
     const refreshBtn = document.getElementById("refreshBtn");
     const refreshNotice = document.getElementById("refreshNotice");
-    let lastMessageTime = null;
     function createMessage(text, sender, time) {
         const msg = document.createElement("div");
         msg.classList.add("message", sender);
@@ -27,14 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const res = await fetch("https://ai-dd.onrender.com/all-messages");
         const data = await res.json();
         if (data.messages) {
-            // Only append new messages
-            data.messages.forEach((msg) => {
-                const msgTime = new Date(msg.datetime).getTime();
-                if (!lastMessageTime || msgTime > lastMessageTime) {
-                    createMessage(msg.message, msg.user_type, msg.datetime);
-                    lastMessageTime = msgTime;
-                }
-            });
+            chatWindow.innerHTML = "";
+            data.messages.forEach((msg) =>
+                createMessage(msg.message, msg.user_type, msg.datetime)
+            );
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
     } catch (err) {
