@@ -44,19 +44,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     chatForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const userMsg = chatInput.value.trim();
-        if (!userMsg) return;
-        chatInput.value = "";
-        await fetch("https://ai-dd.onrender.com/send", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: userMsg }),
-        });
-        setTimeout(() => {
-            refreshBtn.click();
-        }, 1000);
+    e.preventDefault();
+    const userMsg = chatInput.value.trim();
+    if (!userMsg) return;
+
+    chatInput.value = "";
+    createMessage(userMsg, "user", new Date().toISOString()); // 👈 Instant feedback
+
+    await fetch("https://ai-dd.onrender.com/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMsg }),
     });
+
+    // ⏳ Optional: show "thinking..." or "Agent 1 is replying..." while waiting
+    createMessage("...", "bot", new Date().toISOString());
+
+    // After delay, refresh messages
+    setTimeout(() => {
+        refreshBtn.click();
+    }, 1000); // or increase to 1500–2000ms depending on n8n speed
+});
+
 
     refreshBtn.addEventListener("click", fetchMessages);
     fetchMessages();
